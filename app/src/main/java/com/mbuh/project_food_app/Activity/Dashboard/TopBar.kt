@@ -50,7 +50,7 @@ fun TopBar() {
         TextField(
             value = text,
             onValueChange = { text=it },
-            label = {
+            placeholder = {
                 Text(
                     text = "What Would you like to eat?",
                     fontSize = 11.sp,

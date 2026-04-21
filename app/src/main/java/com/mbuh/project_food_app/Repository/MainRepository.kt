@@ -5,13 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 import com.mbuh.project_food_app.Domain.CategoryModel
+import com.mbuh.project_food_app.Domain.FoodModel
 
 class MainRepository {
     private val firebaseDatabase = FirebaseDatabase.getInstance()
 
-    fun loadCategory(): LiveData<MutableList<CategoryModel>>{
+    fun loadCategory(): LiveData<MutableList<CategoryModel>> {
         val listData = MutableLiveData<MutableList<CategoryModel>>()
         val ref = firebaseDatabase.getReference("Category")
         ref.addValueEventListener(object : ValueEventListener {
@@ -27,6 +29,32 @@ class MainRepository {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
+        })
+
+        return listData
+    }
+
+    fun loadBestFood(): LiveData<MutableList<FoodModel>> {
+        val listData = MutableLiveData<MutableList<FoodModel>>()
+        val ref = firebaseDatabase.getReference("Foods")
+        val query: Query = ref.orderByChild("BestFood").equalTo(true)
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val lists = mutableListOf<FoodModel>()
+                for (data in snapshot.children) {
+                    val list = data.getValue(FoodModel::class.java)
+                    if (list != null) {
+                        lists.add(list)
+                    }
+                }
+
+                listData.value = lists
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
         })
 
         return listData

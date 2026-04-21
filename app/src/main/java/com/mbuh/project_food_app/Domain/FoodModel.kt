@@ -6,7 +6,7 @@ data class FoodModel(
     var BestFood: Boolean=false,
     var CategoryId: String="",
     var Description: String="",
-    var Id: String="",
+    var Id: Int=0,
     var ImagePath: String="",
     var LocationId: Int=0,
     var Price: Double=0.0,

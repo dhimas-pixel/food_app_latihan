@@ -1,3 +1,5 @@
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.BottomAppBar
@@ -27,7 +29,9 @@ fun MyBottomBar() {
 
     BottomAppBar(
         backgroundColor = colorResource(id = R.color.white),
-        elevation = 3.dp
+        elevation = 3.dp,
+        modifier = Modifier
+            .navigationBarsPadding()
     ) {
         bottomMenuItemsList.forEach { bottomMenuItem ->
             BottomNavigationItem(
