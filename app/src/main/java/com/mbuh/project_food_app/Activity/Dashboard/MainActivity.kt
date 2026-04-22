@@ -63,7 +63,7 @@ fun MainScreen() {
         mutableStateListOf<FoodModel>()
     }
 
-    val showBestFoodLoading by remember {
+    var showBestFoodLoading by remember {
         mutableStateOf(true)
     }
 
@@ -83,7 +83,7 @@ fun MainScreen() {
         viewModel.loadBestFood().observeForever {
             bestFood.clear()
             bestFood.addAll(it)
-            showCategoryLoading = false
+            showBestFoodLoading = false
         }
     }
 
@@ -138,17 +138,15 @@ fun MainScreen() {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(80.dp),
+                            .height(200.dp),
                         contentAlignment = Alignment.Center
                     ) {
                         CircularProgressIndicator()
                     }
                 }
             } else {
-                item(
-                    span = { GridItemSpan(2) }
-                ) {
-
+                items(bestFood.size) { index ->
+                    FoodItemCardGrid(item = bestFood[index])
                 }
             }
         }

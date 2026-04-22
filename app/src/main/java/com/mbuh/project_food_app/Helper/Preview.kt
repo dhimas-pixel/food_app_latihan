@@ -12,5 +12,6 @@ val previewFood = FoodModel(
     Star = 4.7,
     TimeValue = 25,
     Title = "Pizza",
-    Calorie = 400
+    Calorie = 400,
+    numberInCart = 1
 )
