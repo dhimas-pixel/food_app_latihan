@@ -1,14 +1,17 @@
 package com.mbuh.project_food_app.Activity.ItemsList
 
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -29,7 +32,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import coil.compose.AsyncImage
+import com.mbuh.project_food_app.Activity.DetailFood.DetailEachFoodActivity
 import com.mbuh.project_food_app.Domain.FoodModel
 import com.mbuh.project_food_app.Helper.previewFood
 import com.mbuh.project_food_app.R
@@ -62,7 +67,13 @@ fun Items(item: FoodModel) {
             .fillMaxWidth()
             .background(color = colorResource(R.color.white), shape = RoundedCornerShape(10.dp))
             .wrapContentHeight()
-            .clickable { }
+            .clickable {
+                val intent = Intent(context, DetailEachFoodActivity::class.java).apply {
+                    putExtra("object", item)
+                }
+
+                startActivity(context, intent, null)
+            }
     ) {
         FoodImage(item = item)
         FoodDetail(item = item)
@@ -114,7 +125,7 @@ fun PriceRow(price: Double) {
             color = Color.White,
             fontSize = 16.sp,
             modifier = Modifier
-                .padding(8.dp)
+                .padding(end = 8.dp)
                 .background(
                     color = colorResource(R.color.green),
                     shape = RoundedCornerShape(10.dp)

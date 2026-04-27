@@ -1,5 +1,6 @@
 package com.mbuh.project_food_app.Activity.Dashboard
 
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,7 +27,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import coil.compose.AsyncImage
+import com.mbuh.project_food_app.Activity.DetailFood.DetailEachFoodActivity
 import com.mbuh.project_food_app.Domain.FoodModel
 import com.mbuh.project_food_app.Helper.previewFood
 import com.mbuh.project_food_app.R
@@ -50,7 +53,13 @@ fun FoodItemCardGrid(item: FoodModel) {
                 shape = RoundedCornerShape(14.dp)
             )
             .clip(RoundedCornerShape(14.dp))
-            .clickable { },
+            .clickable {
+                val intent = Intent(context, DetailEachFoodActivity::class.java).apply {
+                    putExtra("object", item)
+                }
+
+                ContextCompat.startActivity(context, intent, null)
+            },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AsyncImage(
